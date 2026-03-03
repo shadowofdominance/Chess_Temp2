@@ -43,6 +43,19 @@ public sealed class ChessBoardPlacementHandler : MonoBehaviour {
         Instantiate(_highlightPrefab, tile.transform.position, Quaternion.identity, tile.transform);
     }
 
+    internal void HighlightEnemy(int row, int col) {
+        var tile = GetTile(row, col).transform;
+        if (tile == null) {
+            Debug.LogError("Invalid row or column.");
+            return;
+        }
+
+        var highlight = Instantiate(_highlightPrefab, tile.transform.position, Quaternion.identity, tile.transform);
+        var spriteRenderer = highlight.GetComponent<SpriteRenderer>();
+        if (spriteRenderer != null)
+            spriteRenderer.color = Color.red;
+    }
+
     internal void ClearHighlights() {
         for (var i = 0; i < 8; i++) {
             for (var j = 0; j < 8; j++) {
